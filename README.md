@@ -1,0 +1,50 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/yliess86/BayeTorch/blob/master/LICENSE)
+[![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Pytorch 1.4](https://img.shields.io/badge/pytorch-1.4.0-blue.svg)](https://pytorch.org/)
+
+# BayeTorch: *Towards Democratized Bayesian Deep Learning with PyTorch*
+
+BayeTorch is an experimental module for python based on the PyTorch library. It aims at profiding a simple way to turn any -- at least the one with the layers currently supported -- PyTorch model into its Bayesian equivalent using a Bayesian by Backpropagation approach. Layers from the PyTorch library are ported to their Bayesian form -- `Bayesian[ModuleName]` -- using the local reparametrization trick. Some commonly used Criterions are also available such as the ELBO, minimized for classification tasks.
+
+Supported Layers:
+
+|PyTorch Names  |BayeTorch Equivalent           |
+|:--------------|:------------------------------|
+|torch.nn.Linear|bayetorch.layers.BayesianLinear|
+|torch.nn.Conv2d|bayetorch.layers.BayesianConv2d|
+
+*Work in progress ...*
+
+## Install
+
+### System Install
+
+The BayeTorch module can be installed using the following command (may require sudo):
+
+```bash
+$ (sudo) python3 setup.py install
+```
+
+## Local usage
+
+If you want to use the BayeTorch module without installation, you need at least to install all the modules required for its use (may require sudo):
+
+```bash
+$ (sudo) pip3 install -r requirements.txt
+```
+
+## Tests
+
+All the test can run using the PyTest module installed with the requirements:
+
+```bash
+pytest -v .
+```
+
+## References
+
+- [Shridhar et al. 2019]: Uncertainty Estimations by Softplus normalization in
+Bayesian Convolutional Neural Networks with
+Variational Inference
+
+[Shridhar et al. 2019]: https://arxiv.org/pdf/1806.05978.pdf

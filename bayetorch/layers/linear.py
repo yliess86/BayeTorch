@@ -40,7 +40,7 @@ class BayesianLinear(BayesianModule):
 
     def forward(self, X: Tensor) -> Tensor:
         mean = F.linear(X, self.W) + (self.b if self.bias else 0.0)
-        sigma = torch.exp(self.log_alpha) * self.W ** 2
+        sigma = torch.exp(self.log_alpha) * (self.W ** 2)
         std = torch.sqrt(EPSILON + F.linear(X ** 2, sigma))
         
         X = self.reparametrize(mean, std)

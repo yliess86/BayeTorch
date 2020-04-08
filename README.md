@@ -11,19 +11,20 @@ Supported Layers:
 |PyTorch Names  |BayeTorch Equivalent           |
 |:--------------|:------------------------------|
 |torch.nn.Linear|bayetorch.layers.BayesianLinear|
-|torch.nn.Conv1d|bayetorch.layers.BayesianConv1d|
-|torch.nn.Conv2d|bayetorch.layers.BayesianConv2d|
-|torch.nn.Conv3d|bayetorch.layers.BayesianConv3d|
+|torch.nn.Conv1d|bayetorch.layers.BayesianConv1D|
+|torch.nn.Conv2d|bayetorch.layers.BayesianConv2D|
+|torch.nn.Conv3d|bayetorch.layers.BayesianConv3D|
 
 Model Zoo:
 
 
-|Model Name|BayeTorch Equivalent   |
-|:---------|:----------------------|
-|LeNet5    |bayetorch.models.LeNet5|
-|VGG11     |bayetorch.models.VGG11 |
-|VGG16     |bayetorch.models.VGG16 |
-|VGG19     |bayetorch.models.VGG19 |
+|Model Name|BayeTorch Equivalent           |
+|:---------|:------------------------------|
+|LeNet5    |bayetorch.models.BayesianLeNet5|
+|VGG11     |bayetorch.models.BayesianVGG11 |
+|VGG13     |bayetorch.models.BayesianVGG13 |
+|VGG16     |bayetorch.models.BayesianVGG16 |
+|VGG19     |bayetorch.models.BayesianVGG19 |
 
 *Work in progress ...*
 

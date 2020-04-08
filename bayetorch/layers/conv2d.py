@@ -56,7 +56,7 @@ class BayesianConv2D(BayesianModule):
         params = (self.stride, self.padding, self.dilation, self.groups)
 
         mean = F.conv2d(X, self.W, bias, *params)
-        sigma = torch.exp(self.log_alpha) * self.W ** 2
+        sigma = torch.exp(self.log_alpha) * (self.W ** 2)
         std = torch.sqrt(EPSILON + F.conv2d(X ** 2, sigma, None, *params))
 
         X = self.reparametrize(mean, std)

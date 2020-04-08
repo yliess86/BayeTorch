@@ -7,12 +7,19 @@ import torch.nn as nn
 
 
 INT_2_TWO = Union[int, Tuple[int, int]]
+INT_2_THREE = Union[int, Tuple[int, int, int]]
 EPSILON = 1e-10
 
 
 def int_2_two(n: INT_2_TWO) -> Tuple[int, int]:
     if isinstance(n, int):
         return (n, n)
+    return n
+
+
+def int_2_three(n: INT_2_THREE) -> Tuple[int, int, int]:
+    if isinstance(n, int):
+        return (n, n, n)
     return n
 
 

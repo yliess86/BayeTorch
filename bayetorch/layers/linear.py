@@ -1,7 +1,5 @@
 from bayetorch.layers.base import BayesianModule
 from bayetorch.layers.base import EPSILON
-from bayetorch.layers.base import INT_2_TWO
-from bayetorch.layers.base import int_2_two
 from torch import Tensor
 
 import numpy as np
@@ -14,19 +12,17 @@ class BayesianLinear(BayesianModule):
     def __init__(
         self,  
         in_features: int, 
-        out_features: int, 
-        alpha_shape: INT_2_TWO = 1,
+        out_features: int,
         bias: bool = True
     ) -> None:
         super(BayesianLinear, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
-        self.alpha_shape = int_2_two(alpha_shape)
         self.bias = bias
 
         W_size = (self.out_features, self.in_features)
         self.W = nn.Parameter(Tensor(*W_size))
-        self.log_alpha = nn.Parameter(Tensor(*self.alpha_shape))
+        self.log_alpha = nn.Parameter(Tensor(*self.W.size()))
         
         if self.bias:
             b_size = (self.out_features, )
@@ -64,7 +60,6 @@ class BayesianLinear(BayesianModule):
             f"BayesianLinear("
                 f"in features: {self.in_features}, "
                 f"out features: {self.out_features}, "
-                f"alpha shape: {self.alpha_shape}, "
                 f"has bias: {self.bias}"
             f")"
         )

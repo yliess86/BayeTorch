@@ -1,7 +1,5 @@
 from bayetorch.layers.base import BayesianModule
 from bayetorch.layers.base import EPSILON
-from bayetorch.layers.base import INT_2_TWO
-from bayetorch.layers.base import int_2_two
 from torch import Tensor
 
 import numpy as np
@@ -10,29 +8,29 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-class BayesianConv2D(BayesianModule):
+class BayesianConv1D(BayesianModule):
     def __init__(
         self,  
         in_channels: int,
         out_channels: int,
-        kernel_size: INT_2_TWO, 
-        stride: INT_2_TWO = 1, 
-        padding: INT_2_TWO = 0, 
-        dilation: INT_2_TWO = 1,
+        kernel_size: int, 
+        stride: int = 1, 
+        padding: int = 0, 
+        dilation: int = 1,
         groups: int = 1,
         bias: bool = True 
     ) -> None:
-        super(BayesianConv2D, self).__init__()
+        super(BayesianConv1D, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
-        self.kernel_size: Tuple[int, int] = int_2_two(kernel_size)
-        self.stride: Tuple[int, int] = int_2_two(stride)
-        self.padding: Tuple[int, int] = int_2_two(padding)
-        self.dilation: Tuple[int, int] = int_2_two(dilation)
+        self.kernel_size = kernel_size
+        self.stride = stride
+        self.padding = padding
+        self.dilation = dilation
         self.groups = groups
         self.bias = bias
 
-        W_size = (self.out_channels, self.in_channels, *self.kernel_size)
+        W_size = (self.out_channels, self.in_channels, self.kernel_size)
         self.W = nn.Parameter(Tensor(*W_size))
         self.log_alpha = nn.Parameter(Tensor(*self.W.size()))
 
@@ -43,8 +41,7 @@ class BayesianConv2D(BayesianModule):
         self.reset()
 
     def reset(self) -> None:
-        k1, k2 = self.kernel_size
-        std = 1.0 / np.sqrt(self.in_channels * k1 * k2)
+        std = 1.0 / np.sqrt(self.in_channels * self.kernel_size)
         self.W.data.uniform_(-std, std)
         self.log_alpha.data.fill_(-5.0)
         
@@ -55,9 +52,9 @@ class BayesianConv2D(BayesianModule):
         bias = self.b if self.bias else None
         params = (self.stride, self.padding, self.dilation, self.groups)
 
-        mean = F.conv2d(X, self.W, bias, *params)
+        mean = F.conv1d(X, self.W, bias, *params)
         sigma = torch.exp(self.log_alpha) * self.W ** 2
-        std = torch.sqrt(EPSILON + F.conv2d(X ** 2, sigma, None, *params))
+        std = torch.sqrt(EPSILON + F.conv1d(X ** 2, sigma, None, *params))
 
         X = self.reparametrize(mean, std)
 

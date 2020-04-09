@@ -4,27 +4,32 @@
 
 # BayeTorch: *Towards Democratized Bayesian Deep Learning with PyTorch*
 
-BayeTorch is an experimental module for python based on the PyTorch library. It aims at profiding a simple way to turn any -- at least the one with the layers currently supported -- PyTorch model into its Bayesian equivalent using a Bayesian by Backpropagation approach. Layers from the PyTorch library are ported to their Bayesian form -- `Bayesian[ModuleName]` -- using the local reparametrization trick. Some commonly used Criterions are also available such as the ELBO, minimized for classification tasks.
+BayeTorch is an experimental module for **Python** based on the **PyTorch** library. It aims at profiding a simple way to turn any -- at least the one with the layers currently supported -- PyTorch model into its **Bayesian** equivalent using a **Bayesian by Backpropagation** approach. **Layers** from the PyTorch library are ported to their Bayesian form -- `Bayesian[ModuleName]` -- using the local reparametrization trick. Some commonly used **Criterions** are also available such as the ELBO, minimized for classification tasks.
 
-Supported Layers:
+**Supported Layers**:
 
-|PyTorch Names  |BayeTorch Equivalent           |
-|:--------------|:------------------------------|
-|torch.nn.Linear|bayetorch.layers.BayesianLinear|
-|torch.nn.Conv1d|bayetorch.layers.BayesianConv1D|
-|torch.nn.Conv2d|bayetorch.layers.BayesianConv2D|
-|torch.nn.Conv3d|bayetorch.layers.BayesianConv3D|
+|PyTorch Names    |BayeTorch Equivalent             |
+|:----------------|:--------------------------------|
+|torch.nn.*Linear*|bayetorch.layers.*BayesianLinear*|
+|torch.nn.*Conv1d*|bayetorch.layers.*BayesianConv1D*|
+|torch.nn.*Conv2d*|bayetorch.layers.*BayesianConv2D*|
+|torch.nn.*Conv3d*|bayetorch.layers.*BayesianConv3D*|
 
-Model Zoo:
+**Model Zoo**:
 
+|Model Name|BayeTorch Equivalent             |
+|:---------|:--------------------------------|
+|*LeNet5*  |bayetorch.models.*BayesianLeNet5*|
+|*VGG11*   |bayetorch.models.*BayesianVGG11* |
+|*VGG13*   |bayetorch.models.*BayesianVGG13* |
+|*VGG16*   |bayetorch.models.*BayesianVGG16* |
+|*VGG19*   |bayetorch.models.*BayesianVGG19* |
 
-|Model Name|BayeTorch Equivalent           |
-|:---------|:------------------------------|
-|LeNet5    |bayetorch.models.BayesianLeNet5|
-|VGG11     |bayetorch.models.BayesianVGG11 |
-|VGG13     |bayetorch.models.BayesianVGG13 |
-|VGG16     |bayetorch.models.BayesianVGG16 |
-|VGG19     |bayetorch.models.BayesianVGG19 |
+**Metrics**:
+
+|Metric Name|BayeTorch Equivalent    |
+|:----------|:-----------------------|
+|*ELBO*     |bayetorch.metrics.*ELBO*|
 
 *Work in progress ...*
 

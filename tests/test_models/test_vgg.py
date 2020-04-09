@@ -22,6 +22,8 @@ class TestVGG:
 
         assert tuple(y.size()) == (32, 2)
         assert tuple(kld.size()) == ()
+        assert not torch.isnan(y).any()
+        assert not torch.isnan(kld).any()
 
     def test_vgg13(self) -> None:
         model = BayesianVGG13(2)
@@ -31,6 +33,8 @@ class TestVGG:
 
         assert tuple(y.size()) == (32, 2)
         assert tuple(kld.size()) == ()
+        assert not torch.isnan(y).any()
+        assert not torch.isnan(kld).any()
         
     def test_vgg16(self) -> None:
         model = BayesianVGG16(2)
@@ -40,6 +44,8 @@ class TestVGG:
 
         assert tuple(y.size()) == (32, 2)
         assert tuple(kld.size()) == ()
+        assert not torch.isnan(y).any()
+        assert not torch.isnan(kld).any()
 
     def test_vgg19(self) -> None:
         model = BayesianVGG19(2)
@@ -49,3 +55,5 @@ class TestVGG:
 
         assert tuple(y.size()) == (32, 2)
         assert tuple(kld.size()) == ()
+        assert not torch.isnan(y).any()
+        assert not torch.isnan(kld).any()

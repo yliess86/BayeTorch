@@ -22,7 +22,7 @@ class BayesianLinear(BayesianModule):
 
         W_size = (self.out_features, self.in_features)
         self.W = nn.Parameter(Tensor(*W_size))
-        self.log_alpha = nn.Parameter(Tensor(*self.W.size()))
+        self.log_alpha = nn.Parameter(Tensor(*W_size))
         
         if self.bias:
             b_size = (self.out_features, )

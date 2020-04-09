@@ -40,8 +40,18 @@ class TestELBO:
             optim.zero_grad()
 
             y, kld = model(X)
-            log_y = F.log_softmax(y, dim=-1)
+            assert not torch.isnan(y).any()
+            assert not torch.isnan(kld).any()
+            
+            y = F.log_softmax(y, dim=1)
+            assert not torch.isnan(y).any()
+            
+            log_y = ELBO.log_mean_exp(y.unsqueeze(len(y.shape)), dim=2)
+            assert not torch.isnan(log_y).any()
+            
             loss = criterion(log_y, Y, kld)
+            assert not torch.isnan(loss).any()
+
 
             loss.backward()
             optim.step()

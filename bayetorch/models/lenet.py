@@ -22,7 +22,7 @@ class BayesianLeNet5(BayesianModel):
     def forward(self, X: Tensor) -> Tuple[Tensor, Tensor]:
         X = torch.max_pool2d(F.softplus(self.conv1(X)), 2)
         X = torch.max_pool2d(F.softplus(self.conv2(X)), 2)
-        
+
         X = X.view(X.size(0), -1)
         
         X = F.softplus(self.fc1(X))

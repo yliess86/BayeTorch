@@ -43,7 +43,7 @@ The BayeTorch module can be installed using the following command (may require s
 $ (sudo) python3 setup.py install
 ```
 
-## Local usage
+### Local usage
 
 If you want to use the BayeTorch module without installation, you need at least to install all the modules required for its use (may require sudo):
 
@@ -51,7 +51,7 @@ If you want to use the BayeTorch module without installation, you need at least 
 $ (sudo) pip3 install -r requirements.txt
 ```
 
-## Tests
+### Tests
 
 All the test can run using the PyTest module installed with the requirements:
 
@@ -59,10 +59,31 @@ All the test can run using the PyTest module installed with the requirements:
 $ pytest -v .
 ```
 
+If your computer/machine is not able to run all the test due to memory consumption, you can run them individually with the same command specifying the test you want to run. VGG19 is particularly heavy due to the almost double amount of parameters required for the bayesian version.
+
+```bash
+$ pytest -v tests/[TestFile].py
+```
+
+### Benchmarks
+
+Benchmarks are available via the `benchmarks` folder ans can be run with (requires cuda enable GPU with cuda and cudnn installed):
+
+```bash
+$ python3 -m benchmarks --model [ModelName]
+```
+
+**Benchmarks available** *(Accurcy reported from validation)*
+
+|Model |Name |Dataset|Frequentist Accuracy|Bayesian Accuracy|Frequentist Size|Bayesian Size|
+|:-----|:----|:------|-------------------:|----------------:|---------------:|------------:|
+|LeNet5|LeNet|MNIST  |                 ...|              ...|             ...|          ...|
+|VGG11 |VGG  |CIFAR10|                 ...|              ...|             ...|          ...|
+
 ## References
 
 - [Shridhar et al. 2019]: Uncertainty Estimations by Softplus normalization in
 Bayesian Convolutional Neural Networks with
-Variational Inference
+Variational Inference ([Github](https://github.com/kumar-shridhar/PyTorch-BayesianCNN))
 
 [Shridhar et al. 2019]: https://arxiv.org/pdf/1806.05978.pdf

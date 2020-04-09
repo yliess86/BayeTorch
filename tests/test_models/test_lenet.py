@@ -19,3 +19,5 @@ class TestLeNet5:
 
         assert tuple(y.size()) == (32, 2)
         assert tuple(kld.size()) == ()
+        assert not torch.isnan(y).any()
+        assert not torch.isnan(kld).any()

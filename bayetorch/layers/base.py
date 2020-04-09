@@ -8,7 +8,7 @@ import torch.nn as nn
 
 INT_2_TWO = Union[int, Tuple[int, int]]
 INT_2_THREE = Union[int, Tuple[int, int, int]]
-EPSILON = 1e-10
+EPSILON = 1e-16
 
 
 def int_2_two(n: INT_2_TWO) -> Tuple[int, int]:
@@ -31,9 +31,10 @@ class BayesianModule(nn.Module):
         raise NotImplementedError("'reset' not implemented!")
         
     def reparametrize(self, mean: Tensor, std: Tensor) -> Tensor:
-        eps = std.new(std.size()).normal_(0.0, 1.0)
+        eps = std.data.new(std.size()).normal_(mean=0.0, std=1.0)
+        X =  mean + eps * std
 
-        return std * eps + mean
+        return X
 
     def froward(self, *args, **kwargs) -> Any:
         raise NotImplementedError("'forward' not implemented!")

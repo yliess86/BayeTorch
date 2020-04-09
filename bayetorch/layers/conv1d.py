@@ -32,7 +32,7 @@ class BayesianConv1D(BayesianModule):
 
         W_size = (self.out_channels, self.in_channels, self.kernel_size)
         self.W = nn.Parameter(Tensor(*W_size))
-        self.log_alpha = nn.Parameter(Tensor(*self.W.size()))
+        self.log_alpha = nn.Parameter(Tensor(*W_size))
 
         if self.bias:
             b_size = (self.out_channels, )

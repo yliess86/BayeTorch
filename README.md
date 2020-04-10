@@ -74,7 +74,6 @@ $ python3 -m benchmarks --model [ModelName]
 ```
 
 **Benchmarks available** *(Accurcy reported from validation)*
-98.51%     |    94.52%    |     0.3389Mb     |    0.6761Mb
 |Model |Name |Dataset|Frequentist Accuracy|Bayesian Accuracy|Frequentist Size|Bayesian Size|
 |:-----|:----|:------|-------------------:|----------------:|---------------:|------------:|
 |LeNet5|LeNet|MNIST  |              98.51%|           94.52%|         338.9kB|      676.1kB|

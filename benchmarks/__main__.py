@@ -9,13 +9,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--model",      type=str, required=True)
 parser.add_argument("--epochs",     type=int, required=True)
 parser.add_argument("--batch_size", type=int, required=True)
+parser.add_argument("--f_lr", type=float, required=True)
+parser.add_argument("--b_lr", type=float, required=True)
 
 args = parser.parse_args()
 
 if args.model.lower() == "LeNet".lower():
     (f_acc, f_size), (b_acc, b_size) = BenchmarkLeNet5(
         epochs=args.epochs, batch_size=args.batch_size, 
-        n_workers=6, root="datasets", f_lr=1e-2, b_lr=1e-3,
+        n_workers=6, root="datasets", f_lr=args.f_lr, b_lr=args.b_lr,
     )()
 
     table = PrettyTable([
@@ -36,7 +38,7 @@ if args.model.lower() == "LeNet".lower():
 if args.model.lower() == "VGG".lower():
     (f_acc, f_size), (b_acc, b_size) = BenchmarkVGG11(
         epochs=args.epochs, batch_size=args.batch_size,
-        n_workers=6, root="datasets", f_lr=1e-2, b_lr=1e-3,
+        n_workers=6, root="datasets", f_lr=args.f_lr, b_lr=args.b_lr,
     )()
 
     table = PrettyTable([

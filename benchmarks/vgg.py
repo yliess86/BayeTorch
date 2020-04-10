@@ -14,6 +14,8 @@ from torch.utils.data import DataLoader
 from torchvision.datasets.cifar import CIFAR10
 from torchvision.transforms import Compose
 from torchvision.transforms import Normalize
+from torchvision.transforms import RandomCrop
+from torchvision.transforms import RandomHorizontalFlip
 from torchvision.transforms import ToTensor
 from tqdm import tqdm
 from typing import Tuple
@@ -73,9 +75,19 @@ class BenchmarkVGG11(Benchmark):
         self.f_lr = f_lr
         self.b_lr = b_lr
 
-        train_transform = valid_transform = Compose([
+        train_transform = Compose([ 
+            RandomCrop(32, padding=4),
+            RandomHorizontalFlip(),
             ToTensor(),
-            Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            Normalize(
+                mean=(0.4914, 0.4822, 0.4465),
+                std=(0.2023, 0.1994, 0.2010))
+        ])
+        valid_transform = Compose([
+            ToTensor(),
+            Normalize(
+                mean=(0.4914, 0.4822, 0.4465),
+                std=(0.2023, 0.1994, 0.2010))
         ])
 
         self.train_loader = DataLoader(

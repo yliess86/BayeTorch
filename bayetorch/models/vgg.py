@@ -21,9 +21,8 @@ class BayesianVGG11(BayesianModel):
         self.conv7 = BayesianConv2D(512, 512, 3, padding=1)
         self.conv8 = BayesianConv2D(512, 512, 3, padding=1)
         
-        self.fc1 = BayesianLinear(512 * 7 * 7, 512)
-        self.fc2 = BayesianLinear(512,         512)
-        self.fc3 = BayesianLinear(512,   n_classes)
+        self.fc1 = BayesianLinear(512,       512)
+        self.fc2 = BayesianLinear(512, n_classes)
 
     def forward(self, X: Tensor) -> Tuple[Tensor, Tensor]:
         X = torch.max_pool2d(F.softplus(self.conv1(X)), 2, stride=2)
@@ -38,8 +37,7 @@ class BayesianVGG11(BayesianModel):
         X = X.view(X.size(0), -1)
         
         X = F.softplus(self.fc1(X))
-        X = F.softplus(self.fc2(X))
-        X = self.fc3(X)
+        X = self.fc2(X)
         
         kld = self.kl_divergence
         
@@ -60,9 +58,8 @@ class BayesianVGG13(BayesianModel):
         self.conv9  = BayesianConv2D(512, 512, 3, padding=1)
         self.conv10 = BayesianConv2D(512, 512, 3, padding=1)
         
-        self.fc1 = BayesianLinear(512 * 7 * 7, 512)
-        self.fc2 = BayesianLinear(512,         512)
-        self.fc3 = BayesianLinear(512,   n_classes)
+        self.fc1 = BayesianLinear(512,       512)
+        self.fc2 = BayesianLinear(512, n_classes)
 
     def forward(self, X: Tensor) -> Tuple[Tensor, Tensor]:
         X = F.softplus(self.conv1(X))
@@ -79,8 +76,7 @@ class BayesianVGG13(BayesianModel):
         X = X.view(X.size(0), -1)
         
         X = F.softplus(self.fc1(X))
-        X = F.softplus(self.fc2(X))
-        X = self.fc3(X)
+        X = self.fc2(X)
 
         kld = self.kl_divergence
         
@@ -104,9 +100,8 @@ class BayesianVGG16(BayesianModel):
         self.conv12 = BayesianConv2D(512, 512, 3, padding=1)
         self.conv13 = BayesianConv2D(512, 512, 3, padding=1)
         
-        self.fc1 = BayesianLinear(512 * 7 * 7, 512)
-        self.fc2 = BayesianLinear(512,         512)
-        self.fc3 = BayesianLinear(512,   n_classes)
+        self.fc1 = BayesianLinear(512,       512)
+        self.fc2 = BayesianLinear(512, n_classes)
 
     def forward(self, X: Tensor) -> Tuple[Tensor, Tensor]:
         X = F.softplus(self.conv1(X))
@@ -126,8 +121,7 @@ class BayesianVGG16(BayesianModel):
         X = X.view(X.size(0), -1)
         
         X = F.softplus(self.fc1(X))
-        X = F.softplus(self.fc2(X))
-        X = self.fc3(X)
+        X = self.fc2(X)
 
         kld = self.kl_divergence
         
@@ -154,9 +148,8 @@ class BayesianVGG19(BayesianModel):
         self.conv15 = BayesianConv2D(512, 512, 3, padding=1)
         self.conv16 = BayesianConv2D(512, 512, 3, padding=1)
         
-        self.fc1 = BayesianLinear(512 * 7 * 7, 512)
-        self.fc2 = BayesianLinear(512,         512)
-        self.fc3 = BayesianLinear(512,   n_classes)
+        self.fc1 = BayesianLinear(512,       512)
+        self.fc2 = BayesianLinear(512, n_classes)
 
     def forward(self, X: Tensor) -> Tuple[Tensor, Tensor]:
         X = F.softplus(self.conv1(X))
@@ -179,8 +172,7 @@ class BayesianVGG19(BayesianModel):
         X = X.view(X.size(0), -1)
         
         X = F.softplus(self.fc1(X))
-        X = F.softplus(self.fc2(X))
-        X = self.fc3(X)
+        X = self.fc2(X)
 
         kld = self.kl_divergence
         

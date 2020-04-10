@@ -17,7 +17,7 @@ class TestVGG:
     def test_vgg11(self) -> None:
         model = BayesianVGG11(2)
         
-        X = torch.zeros((32, 3, 224, 224))
+        X = torch.zeros((32, 3, 32, 32))
         y, kld = model(X)
 
         assert tuple(y.size()) == (32, 2)
@@ -28,7 +28,7 @@ class TestVGG:
     def test_vgg13(self) -> None:
         model = BayesianVGG13(2)
         
-        X = torch.zeros((32, 3, 224, 224))
+        X = torch.zeros((32, 3, 32, 32))
         y, kld = model(X)
 
         assert tuple(y.size()) == (32, 2)
@@ -39,7 +39,7 @@ class TestVGG:
     def test_vgg16(self) -> None:
         model = BayesianVGG16(2)
         
-        X = torch.zeros((32, 3, 224, 224))
+        X = torch.zeros((32, 3, 32, 32))
         y, kld = model(X)
 
         assert tuple(y.size()) == (32, 2)
@@ -50,7 +50,7 @@ class TestVGG:
     def test_vgg19(self) -> None:
         model = BayesianVGG19(2)
         
-        X = torch.zeros((32, 3, 224, 224))
+        X = torch.zeros((32, 3, 32, 32))
         y, kld = model(X)
 
         assert tuple(y.size()) == (32, 2)

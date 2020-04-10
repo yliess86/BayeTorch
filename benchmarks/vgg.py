@@ -14,7 +14,6 @@ from torch.utils.data import DataLoader
 from torchvision.datasets.cifar import CIFAR10
 from torchvision.transforms import Compose
 from torchvision.transforms import Normalize
-from torchvision.transforms import Resize
 from torchvision.transforms import ToTensor
 from tqdm import tqdm
 from typing import Tuple
@@ -36,9 +35,8 @@ class VGG11(nn.Module):
         self.conv7 = nn.Conv2d(512, 512, 3, padding=1)
         self.conv8 = nn.Conv2d(512, 512, 3, padding=1)
         
-        self.fc1 = nn.Linear(512 * 7 * 7, 512)
-        self.fc2 = nn.Linear(512,         512)
-        self.fc3 = nn.Linear(512,   n_classes)
+        self.fc1 = nn.Linear(512,       512)
+        self.fc2 = nn.Linear(512, n_classes)
 
     def forward(self, X: Tensor) -> Tensor:
         X = torch.max_pool2d(torch.relu(self.conv1(X)), 2, stride=2)
@@ -53,8 +51,7 @@ class VGG11(nn.Module):
         X = X.view(X.size(0), -1)
         
         X = torch.relu(self.fc1(X))
-        X = torch.relu(self.fc2(X))
-        X = self.fc3(X)
+        X = self.fc2(X)
         
         return X
 
@@ -77,7 +74,6 @@ class BenchmarkVGG11(Benchmark):
         self.b_lr = b_lr
 
         train_transform = valid_transform = Compose([
-            Resize((224, 224)),
             ToTensor(),
             Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])

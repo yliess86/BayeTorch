@@ -17,13 +17,13 @@ BayeTorch is an experimental module for **Python** based on the **PyTorch** libr
 
 **Model Zoo**:
 
-|Model Name|BayeTorch Equivalent             |
-|:---------|:--------------------------------|
-|*LeNet5*  |bayetorch.models.*BayesianLeNet5*|
-|*VGG11*   |bayetorch.models.*BayesianVGG11* |
-|*VGG13*   |bayetorch.models.*BayesianVGG13* |
-|*VGG16*   |bayetorch.models.*BayesianVGG16* |
-|*VGG19*   |bayetorch.models.*BayesianVGG19* |
+|Model Name|Frequentist Equivalent   |BayeTorch Equivalent             |
+|:---------|:------------------------|:--------------------------------|
+|*LeNet5*  |bayetorch.models.*LeNet5*|bayetorch.models.*BayesianLeNet5*|
+|*VGG11*   |bayetorch.models.*VGG11* |bayetorch.models.*BayesianVGG11* |
+|*VGG13*   |bayetorch.models.*VGG13* |bayetorch.models.*BayesianVGG13* |
+|*VGG16*   |bayetorch.models.*VGG16* |bayetorch.models.*BayesianVGG16* |
+|*VGG19*   |bayetorch.models.*VGG19* |bayetorch.models.*BayesianVGG19* |
 
 **Metrics**:
 
@@ -59,7 +59,7 @@ All the test can run using the PyTest module installed with the requirements:
 $ pytest -v .
 ```
 
-If your computer/machine is not able to run all the test due to memory consumption, you can run them individually with the same command specifying the test you want to run. VGG19 is particularly heavy due to the almost double amount of parameters required for the bayesian version.
+If your computer/machine is not able to run all the test due to memory consumption, you can run them individually with the same command specifying the test you want to run.
 
 ```bash
 $ pytest -v tests/[TestFile].py

@@ -74,11 +74,17 @@ $ python3 -m benchmarks --model [ModelName]
 ```
 
 **Benchmarks available** *(Accurcy reported from validation)*
-|Model |Name |Dataset|Frequentist Accuracy|Bayesian Accuracy|Frequentist Size|Bayesian Size|Epochs|Learning Rate*|Batch Size|
-|:-----|:----|:------|-------------------:|----------------:|---------------:|------------:|-----:|-------------:|---------:|
-|LeNet5|LeNet|MNIST  |              98.75%|           98.43%|         338.9kB|      676.1kB|    10|     1e-2/1e-3|       256|
-|VGG11 |VGG11|CIFAR10|              82.99%|           63.96%|         72.39Mb|      144.8Mb|    30|     1e-3/1e-4|       256|
-|VGG16 |VGG16|CIFAR10|              86.56%|           75.81%|         114.3Mb|      228.6Mb|   100|     1e-3/1e-4|       256|
+|Model |Name |Dataset|Frequentist Accuracy|Bayesian Accuracy|Frequentist Size|Bayesian Size|
+|:-----|:----|:------|-------------------:|----------------:|---------------:|------------:|
+|LeNet5|LeNet|MNIST  |              98.75%|           98.43%|         338.9kB|      676.1kB|
+|VGG11 |VGG11|CIFAR10|              82.99%|           63.96%|         72.39Mb|      144.8Mb|
+|VGG16 |VGG16|CIFAR10|              86.56%|           75.81%|         114.3Mb|      228.6Mb|
+
+|Model |Name |Dataset|Epochs|Learning Rate*|Batch Size|
+|:-----|:----|:------|-----:|-------------:|---------:|
+|LeNet5|LeNet|MNIST  |    10|     1e-2/1e-3|       256|
+|VGG11 |VGG11|CIFAR10|    30|     1e-3/1e-4|       256|
+|VGG16 |VGG16|CIFAR10|   100|     1e-3/1e-4|       256|
 
 \* Learning rate is different for frequentist and bayesian `f_lr/b_lr`. Bayesian version seems to work better with smaller learning rates.
 

@@ -12,6 +12,8 @@ import torch.nn.functional as F
 class BayesianVGG11(BayesianModel):
     def __init__(self, n_classes: int = 10) -> None:
         super(BayesianVGG11, self).__init__()
+        self.n_classes = n_classes
+
         self.conv1 = BayesianConv2D(  3,  64, 3, padding=1)
         self.conv2 = BayesianConv2D( 64, 128, 3, padding=1)
         self.conv3 = BayesianConv2D(128, 256, 3, padding=1)
@@ -47,6 +49,8 @@ class BayesianVGG11(BayesianModel):
 class BayesianVGG13(BayesianModel):
     def __init__(self, n_classes: int = 10) -> None:
         super(BayesianVGG13, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1  = BayesianConv2D(  3,  64, 3, padding=1)
         self.conv2  = BayesianConv2D( 64,  64, 3, padding=1)
         self.conv3  = BayesianConv2D( 64, 128, 3, padding=1)
@@ -86,6 +90,8 @@ class BayesianVGG13(BayesianModel):
 class BayesianVGG16(BayesianModel):
     def __init__(self, n_classes: int = 10) -> None:
         super(BayesianVGG16, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1  = BayesianConv2D(  3,  64, 3, padding=1)
         self.conv2  = BayesianConv2D( 64,  64, 3, padding=1)
         self.conv3  = BayesianConv2D( 64, 128, 3, padding=1)
@@ -131,6 +137,8 @@ class BayesianVGG16(BayesianModel):
 class BayesianVGG19(BayesianModel):
     def __init__(self, n_classes: int = 10) -> None:
         super(BayesianVGG19, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1  = BayesianConv2D(  3,  64, 3, padding=1)
         self.conv2  = BayesianConv2D( 64,  64, 3, padding=1)
         self.conv3  = BayesianConv2D( 64, 128, 3, padding=1)

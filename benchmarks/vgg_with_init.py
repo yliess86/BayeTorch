@@ -25,11 +25,12 @@ class BenchmarkWithInitVGG11(BenchmarkWithInit):
         root: str,
         f_lr: float,
         b_lr: float,
-        freeze: bool
+        freeze: bool,
+        samples: int
     ) -> None:
         super(BenchmarkWithInitVGG11, self).__init__(
             f_epochs, b_epochs, batch_size, n_workers, 
-            root, f_lr, b_lr, freeze
+            root, f_lr, b_lr, freeze, samples
         )
         train_transform = valid_transform = ToTensor() 
 

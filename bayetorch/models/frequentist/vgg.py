@@ -7,6 +7,8 @@ import torch.nn as nn
 class VGG11(nn.Module):
     def __init__(self, n_classes: int = 10) -> None:
         super(VGG11, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1 = nn.Conv2d(  3,  64, 3, padding=1)
         self.conv2 = nn.Conv2d( 64, 128, 3, padding=1)
         self.conv3 = nn.Conv2d(128, 256, 3, padding=1)
@@ -40,6 +42,8 @@ class VGG11(nn.Module):
 class VGG13(nn.Module):
     def __init__(self, n_classes: int = 10) -> None:
         super(VGG13, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1  = nn.Conv2d(  3,  64, 3, padding=1)
         self.conv2  = nn.Conv2d( 64,  64, 3, padding=1)
         self.conv3  = nn.Conv2d( 64, 128, 3, padding=1)
@@ -77,6 +81,8 @@ class VGG13(nn.Module):
 class VGG16(nn.Module):
     def __init__(self, n_classes: int = 10) -> None:
         super(VGG16, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1  = nn.Conv2d(  3,  64, 3, padding=1)
         self.conv2  = nn.Conv2d( 64,  64, 3, padding=1)
         self.conv3  = nn.Conv2d( 64, 128, 3, padding=1)
@@ -120,6 +126,8 @@ class VGG16(nn.Module):
 class VGG19(nn.Module):
     def __init__(self, n_classes: int = 10) -> None:
         super(VGG19, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1  = nn.Conv2d(  3,  64, 3, padding=1)
         self.conv2  = nn.Conv2d( 64,  64, 3, padding=1)
         self.conv3  = nn.Conv2d( 64, 128, 3, padding=1)

@@ -36,10 +36,11 @@ class BenchmarkVGG11(Benchmark):
         n_workers: int,
         root: str,
         f_lr: float,
-        b_lr: float
+        b_lr: float,
+        samples: int
     ) -> None:
         super(BenchmarkVGG11, self).__init__(
-            epochs, batch_size, n_workers, root, f_lr, b_lr
+            epochs, batch_size, n_workers, root, f_lr, b_lr, samples
         )
 
         train_transform = Compose([ 
@@ -84,10 +85,11 @@ class BenchmarkVGG16(Benchmark):
         n_workers: int,
         root: str,
         f_lr: float,
-        b_lr: float
+        b_lr: float,
+        samples: int
     ) -> None:
         super(BenchmarkVGG16, self).__init__(
-            epochs, batch_size, n_workers, root, f_lr, b_lr
+            epochs, batch_size, n_workers, root, f_lr, b_lr, samples
         )
 
         train_transform = Compose([ 

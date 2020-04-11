@@ -12,6 +12,8 @@ import torch.nn.functional as F
 class BayesianLeNet5(BayesianModel):
     def __init__(self, n_classes: int = 10) -> None:
         super(BayesianLeNet5, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1 = BayesianConv2D(1,  6, 5)
         self.conv2 = BayesianConv2D(6, 16, 5)
         

@@ -7,6 +7,8 @@ import torch.nn as nn
 class LeNet5(nn.Module):
     def __init__(self, n_classes: int = 10) -> None:
         super(LeNet5, self).__init__()
+        self.n_classes = n_classes
+        
         self.conv1 = nn.Conv2d(1,  6, 5)
         self.conv2 = nn.Conv2d(6, 16, 5)
         

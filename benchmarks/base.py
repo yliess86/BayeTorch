@@ -1,14 +1,18 @@
 from bayetorch.metrics import ELBO
+from benchmarks.helpers import step_bayesian
+from benchmarks.helpers import step_frequentist
 from typing import List
 from typing import Tuple
 from torch import Tensor
 from torch.optim import Adam
+from torch.optim import Optimizer
 from tqdm import tqdm
 
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
 
 class Benchmark:
     def __init__(
@@ -18,7 +22,8 @@ class Benchmark:
         n_workers: int,
         root: str,
         f_lr: float,
-        b_lr: float
+        b_lr: float,
+        samples: int
     ) -> None:
         self.epochs = epochs
         self.batch_size = batch_size
@@ -26,6 +31,7 @@ class Benchmark:
         self.root = root
         self.f_lr = f_lr
         self.b_lr = b_lr
+        self.samples = samples
 
         self.train_loader = None
         self.valid_loader = None
@@ -47,24 +53,20 @@ class Benchmark:
             print("-- Epoch", f"{(epoch + 1)}/{self.epochs}")
 
             self.frequentist.train()
+            n = len(self.train_loader.dataset)
             for X, Y in tqdm(self.train_loader, desc="Train Batch"):
-                optim.zero_grad()
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y = self.frequentist(X)
-                loss = criterion(y, Y)
-
-                loss.backward()
-                optim.step()
+                step_frequentist(
+                    self.frequentist, X, Y, n, optim, criterion, False
+                )
 
             self.frequentist.eval()
             n = len(self.valid_loader.dataset)
             acc = 0.0
             for X, Y in tqdm(self.valid_loader, desc="Validation Batch"):
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y = self.frequentist(X)
-                acc += torch.argmax(y, axis=-1).eq(Y).sum().item() / n
+                loss, acc_ = step_frequentist(
+                    self.frequentist, X, Y, n, optim, criterion, True
+                )
+                acc += acc_
             
             print("Validation Accuracy:", f"{acc:.2%}")
             if acc > best_acc:
@@ -88,28 +90,22 @@ class Benchmark:
             print("-- Epoch", f"{(epoch + 1)}/{self.epochs}")
 
             self.bayesian.train()
+            n = len(self.train_loader.dataset)
             for X, Y in tqdm(self.train_loader, desc="Train Batch"):
-                optim.zero_grad()
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y, kld = self.bayesian(X)
-                y = F.log_softmax(y, dim=1)
-                log_y = ELBO.log_mean_exp(y.unsqueeze(len(y.shape)), dim=2)
-                loss = criterion(log_y, Y, kld)
-
-                loss.backward()
-                optim.step()
+                step_bayesian(
+                    self.bayesian, X, Y, n, optim, criterion, 
+                    self.samples, False
+                )
 
             self.bayesian.eval()
             n = len(self.valid_loader.dataset)
             acc = 0.0
             for X, Y in tqdm(self.valid_loader, desc="Validation Batch"):
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y, _ = self.bayesian(X)
-                y = F.log_softmax(y, dim=1)
-                log_y = ELBO.log_mean_exp(y.unsqueeze(len(y.shape)), dim=2)
-                acc += torch.argmax(log_y, axis=-1).eq(Y).sum().item() / n
+                loss, acc_ = step_bayesian(
+                    self.bayesian, X, Y, n, optim, criterion,
+                    self.samples, True
+                )
+                acc += acc_
             
             print("Validation Accuracy:", f"{acc:.2%}")
             if acc > best_acc:
@@ -136,7 +132,8 @@ class BenchmarkWithInit:
         root: str,
         f_lr: float,
         b_lr: float,
-        freeze: bool
+        freeze: bool,
+        samples: int
     ) -> None:
         super(BenchmarkWithInit, self).__init__()
         self.f_epochs = f_epochs
@@ -147,6 +144,7 @@ class BenchmarkWithInit:
         self.f_lr = f_lr
         self.b_lr = b_lr
         self.freeze = freeze
+        self.samples = samples
 
         self.train_loader = None
         self.valid_loader = None
@@ -165,24 +163,20 @@ class BenchmarkWithInit:
             print("-- Epoch", f"{(epoch + 1)}/{self.f_epochs}")
 
             self.frequentist.train()
+            n = len(self.train_loader.dataset)
             for X, Y in tqdm(self.train_loader, desc="Train Batch"):
-                optim.zero_grad()
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y = self.frequentist(X)
-                loss = criterion(y, Y)
-
-                loss.backward()
-                optim.step()
+                step_frequentist(
+                    self.frequentist, X, Y, n, optim, criterion, False
+                )
 
             self.frequentist.eval()
             n = len(self.valid_loader.dataset)
             acc = 0.0
             for X, Y in tqdm(self.valid_loader, desc="Validation Batch"):
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y = self.frequentist(X)
-                acc += torch.argmax(y, axis=-1).eq(Y).sum().item() / n
+                loss, acc_ = step_frequentist(
+                    self.frequentist, X, Y, n, optim, criterion, True
+                )
+                acc += acc_
             
             print("Validation Accuracy:", f"{acc:.2%}")
             if acc > best_acc:
@@ -208,12 +202,11 @@ class BenchmarkWithInit:
         n = len(self.valid_loader.dataset)
         start_acc = 0.0
         for X, Y in tqdm(self.valid_loader, desc="Validation Batch"):
-            X, Y = X.float().cuda(), Y.long().cuda()
-
-            y, _ = self.bayesian(X)
-            y = F.log_softmax(y, dim=1)
-            log_y = ELBO.log_mean_exp(y.unsqueeze(len(y.shape)), dim=2)
-            start_acc += torch.argmax(log_y, axis=-1).eq(Y).sum().item() / n
+            loss, acc_ = step_bayesian(
+                self.bayesian, X, Y, n, optim, criterion,
+                self.samples, True
+            )
+            start_acc += acc_
         
         print("Start Validation Accuracy:", f"{start_acc:.2%}")
 
@@ -222,28 +215,22 @@ class BenchmarkWithInit:
             print("-- Epoch", f"{(epoch + 1)}/{self.b_epochs}")
 
             self.bayesian.train()
+            n = len(self.train_loader.dataset)
             for X, Y in tqdm(self.train_loader, desc="Train Batch"):
-                optim.zero_grad()
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y, kld = self.bayesian(X)
-                y = F.log_softmax(y, dim=1)
-                log_y = ELBO.log_mean_exp(y.unsqueeze(len(y.shape)), dim=2)
-                loss = criterion(log_y, Y, kld)
-
-                loss.backward()
-                optim.step()
+                step_bayesian(
+                    self.bayesian, X, Y, n, optim, criterion, 
+                    self.samples, False
+                )
 
             self.bayesian.eval()
             n = len(self.valid_loader.dataset)
             acc = 0.0
             for X, Y in tqdm(self.valid_loader, desc="Validation Batch"):
-                X, Y = X.float().cuda(), Y.long().cuda()
-
-                y, _ = self.bayesian(X)
-                y = F.log_softmax(y, dim=1)
-                log_y = ELBO.log_mean_exp(y.unsqueeze(len(y.shape)), dim=2)
-                acc += torch.argmax(log_y, axis=-1).eq(Y).sum().item() / n
+                loss, acc_ = step_bayesian(
+                    self.bayesian, X, Y, n, optim, criterion,
+                    self.samples, True
+                )
+                acc += acc_
             
             print("Validation Accuracy:", f"{acc:.2%}")
             if acc > best_acc:

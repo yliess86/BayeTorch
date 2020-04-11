@@ -14,6 +14,7 @@ parser.add_argument("--model",      type=str,   required=True)
 parser.add_argument("--epochs",     type=int,   required=True, nargs="+")
 parser.add_argument("--batch_size", type=int,   required=True)
 parser.add_argument("--lr",         type=float, required=True, nargs="+")
+parser.add_argument("--samples",    type=int,   default=1)
 parser.add_argument("--init",       action="store_true")
 parser.add_argument("--freeze",     action="store_true")
 
@@ -24,7 +25,8 @@ if args.init:
         p_acc, s_acc, f_acc = BenchmarkWithInitLeNet5(
             f_epochs=args.epochs[0], b_epochs=args.epochs[1],
             batch_size=args.batch_size, n_workers=6, root="datasets",
-            f_lr=args.lr[0], b_lr=args.lr[1], freeze=args.freeze
+            f_lr=args.lr[0], b_lr=args.lr[1], freeze=args.freeze,
+            samples=args.samples
         )()
         
         table = PrettyTable([
@@ -42,7 +44,8 @@ if args.init:
         p_acc, s_acc, f_acc = BenchmarkWithInitVGG11(
             f_epochs=args.epochs[0], b_epochs=args.epochs[1],
             batch_size=args.batch_size, n_workers=6, root="datasets",
-            f_lr=args.lr[0], b_lr=args.lr[1], freeze=args.freeze
+            f_lr=args.lr[0], b_lr=args.lr[1], freeze=args.freeze,
+            samples=args.samples
         )()
         
         table = PrettyTable([
@@ -60,7 +63,8 @@ if args.init:
         p_acc, s_acc, f_acc = BenchmarkWithInitVGG16(
             f_epochs=args.epochs[0], b_epochs=args.epochs[1],
             batch_size=args.batch_size, n_workers=6, root="datasets",
-            f_lr=args.lr[0], b_lr=args.lr[1], freeze=args.freeze
+            f_lr=args.lr[0], b_lr=args.lr[1], freeze=args.freeze,
+            samples=args.samples
         )()
         
         table = PrettyTable([
@@ -79,6 +83,7 @@ else:
         (f_acc, f_size), (b_acc, b_size) = BenchmarkLeNet5(
             epochs=args.epochs[0], batch_size=args.batch_size, 
             n_workers=6, root="datasets", f_lr=args.lr[0], b_lr=args.lr[1],
+            samples=args.samples
         )()
 
         table = PrettyTable([
@@ -100,6 +105,7 @@ else:
         (f_acc, f_size), (b_acc, b_size) = BenchmarkVGG11(
             epochs=args.epochs[0], batch_size=args.batch_size,
             n_workers=6, root="datasets", f_lr=args.lr[0], b_lr=args.lr[1],
+            samples=args.samples
         )()
 
         table = PrettyTable([
@@ -121,6 +127,7 @@ else:
         (f_acc, f_size), (b_acc, b_size) = BenchmarkVGG16(
             epochs=args.epochs[0], batch_size=args.batch_size,
             n_workers=6, root="datasets", f_lr=args.lr[0], b_lr=args.lr[1],
+            samples=args.samples
         )()
 
         table = PrettyTable([

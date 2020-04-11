@@ -5,6 +5,7 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(base_path, ".."))
 
 from bayetorch.metrics import ELBO
+from bayetorch.metrics import Uncertainty
 from bayetorch.models import BayesianLeNet5
 from torch.optim import Adam
 
@@ -14,7 +15,7 @@ import torch.nn.functional as F
 
 
 class TestELBO:
-    def test_elbo(self):
+    def test_elbo(self) -> None:
         criterion = ELBO(n_samples=32)
 
         predictions = torch.zeros((32, 2)).float()
@@ -24,7 +25,7 @@ class TestELBO:
         loss = criterion(predictions, targets, klds)
         assert loss.sum() == 0.0
 
-    def test_lenet_mnist_elbo(self):
+    def test_lenet_mnist_elbo(self) -> None:
         images = torch.rand((64, 1, 28, 28)).float()
         labels = torch.rand((64)).long()
         loader = [
@@ -55,3 +56,16 @@ class TestELBO:
 
             loss.backward()
             optim.step()
+
+
+class TestUncertainty:
+    def test_uncertainty(self) -> None:
+        model = BayesianLeNet5(10)
+        uncertainty = Uncertainty(15)
+
+        X = torch.rand((1, 28, 28))
+        epistemic, aleatoric, pred = uncertainty(model, X)
+
+        assert tuple(epistemic.size()) == (10, 10)
+        assert tuple(aleatoric.size()) == (10, 10)
+        assert type(pred) == type(0)

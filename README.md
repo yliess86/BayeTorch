@@ -4,7 +4,7 @@
 
 # BayeTorch: *Towards Democratized Bayesian Deep Learning with PyTorch*
 
-BayeTorch is an experimental module for **Python** based on the **PyTorch** library. It aims at profiding a simple way to turn any -- at least the one with the layers currently supported -- PyTorch model into its **Bayesian** equivalent using a **Bayesian by Backpropagation** approach. **Layers** from the PyTorch library are ported to their Bayesian form -- `Bayesian[ModuleName]` -- using the local reparametrization trick. Some commonly used **Criterions** are also available such as the ELBO, minimized for classification tasks.
+BayeTorch is an experimental module for **Python** based on the **PyTorch** library. It aims at profiding a simple way to turn any -- at least the one with the layers currently supported -- PyTorch model into its **Bayesian** equivalent using a **Bayesian by Backpropagation** approach. **Layers** from the PyTorch library are ported to their Bayesian form -- `Bayesian[ModuleName]` -- using the local reparametrization trick. Some commonly used **Criterions** are also available such as the **ELBO**, minimized for classification tasks, and the **Uncertainty** offering **epistemic** and **aleatoric** estimations.
 
 **Supported Layers**:
 
@@ -27,9 +27,10 @@ BayeTorch is an experimental module for **Python** based on the **PyTorch** libr
 
 **Metrics**:
 
-|Metric Name|BayeTorch Equivalent    |
-|:----------|:-----------------------|
-|*ELBO*     |bayetorch.metrics.*ELBO*|
+|Metric Name  |BayeTorch Equivalent           |
+|:------------|:------------------------------|
+|*ELBO*       |bayetorch.metrics.*ELBO*       |
+|*Uncertainty*|bayetorch.metrics.*Uncertainty*|
 
 *Work in progress ...*
 

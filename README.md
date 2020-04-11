@@ -102,8 +102,8 @@ This benchmark shows if their is any benefit benefit from preinitializing a baye
 
 |Model |Name |Dataset|Pretrained Accuracy|Starting Accuracy|Final Accuracy|Freezed|
 |:-----|:----|:------|------------------:|----------------:|-------------:|:------|
-|LeNet5|LeNet|MNIST  |             98.33%|           60.57%|        98.37%|False  |
-|LeNet5|LeNet|MNIST  |             98.33%|           53.68%|        54.15%|True   |
+|LeNet5|LeNet|MNIST  |             98.40%|           86.09%|        98.97%|False  |
+|LeNet5|LeNet|MNIST  |             98.40%|           55.42%|        63.09%|True   |
 |VGG11 |VGG11|CIFAR10|             74.18%|           10.00%|        10.00%|False  |
 |VGG11 |VGG11|CIFAR10|             74.18%|           10.00%|        69.50%|True   |
 |VGG16 |VGG16|CIFAR10|             76.04%|           10.00%|        10.00%|False  |

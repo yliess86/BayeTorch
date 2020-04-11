@@ -29,7 +29,7 @@ setup(
     url="https://github.com/yliess86/BayeTorch",
     python_requires=">=3.6",
     install_requires=requirements,
-    packages=find_packages(exclude=["examples, tests, benchmarks"]),
+    packages=find_packages(exclude=["examples/*, tests/*, benchmarks/*"]),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

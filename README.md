@@ -85,7 +85,7 @@ $ python3 -m benchmarks --model [ModelName]
 |Model |Name |Dataset|Epochs|Learning Rate*|Batch Size|
 |:-----|:----|:------|-----:|-------------:|---------:|
 |LeNet5|LeNet|MNIST  |    10|     1e-2/1e-3|       256|
-|VGG11 |VGG11|CIFAR10|    30|     1e-3/1e-4|       256|
+|VGG11 |VGG11|CIFAR10|    50|     1e-3/1e-4|       256|
 |VGG16 |VGG16|CIFAR10|   100|     1e-3/1e-4|       256|
 
 \* Learning rate is different for frequentist and bayesian `f_lr/b_lr`. Bayesian version seems to work better with smaller learning rates.
@@ -98,25 +98,25 @@ $ python3 -m benchmarks --model [ModelName]
 
 #### Bayesian with Pretrained Frequentist
 
-This benchmark shows if their is any benefit benefit from preinitializing a bayesian model with its pretrained frequentist counterpart. (Hyperparameters are the same as the *Frequentists vs Bayesian* section)
+This benchmark shows if their is any benefit benefit from preinitializing a bayesian model with its pretrained frequentist counterpart.
 
 |Model |Name |Dataset|Pretrained Accuracy|Starting Accuracy|Final Accuracy|Freezed|
 |:-----|:----|:------|------------------:|----------------:|-------------:|:------|
 |LeNet5|LeNet|MNIST  |             98.33%|           60.57%|        98.37%|False  |
-|LeNet5|LeNet|MNIST  |             98.00%|           53.68%|        54.15%|True   |
-|VGG11 |VGG11|CIFAR10|               ...%|             ...%|          ...%|False  |
-|VGG11 |VGG11|CIFAR10|               ...%|             ...%|          ...%|True   |
-|VGG16 |VGG16|CIFAR10|               ...%|             ...%|          ...%|False  |
-|VGG16 |VGG16|CIFAR10|               ...%|             ...%|          ...%|True   |
+|LeNet5|LeNet|MNIST  |             98.33%|           53.68%|        54.15%|True   |
+|VGG11 |VGG11|CIFAR10|             74.18%|           10.00%|        10.00%|False  |
+|VGG11 |VGG11|CIFAR10|             74.18%|           10.00%|        69.50%|True   |
+|VGG16 |VGG16|CIFAR10|             76.04%|           10.00%|        10.00%|False  |
+|VGG16 |VGG16|CIFAR10|             76.04%|           10.00%|        65.16%|True   |
 
-|Model |Name |Dataset|Epochs|Learning Rate*|Batch Size|Freezed|
-|:-----|:----|:------|-----:|-------------:|---------:|:------|
-|LeNet5|LeNet|MNIST  |   ...|           ...|       ...|False  |
-|LeNet5|LeNet|MNIST  |   ...|           ...|       ...|True   |
-|VGG11 |VGG11|CIFAR10|   ...|           ...|       ...|False  |
-|VGG11 |VGG11|CIFAR10|   ...|           ...|       ...|True   |
-|VGG16 |VGG16|CIFAR10|   ...|           ...|       ...|False  |
-|VGG16 |VGG16|CIFAR10|   ...|           ...|       ...|True   |
+|Model |Name |Dataset|Epochs|Learning Rate|Batch Size|Freezed|
+|:-----|:----|:------|-----:|------------:|---------:|:------|
+|LeNet5|LeNet|MNIST  |     3|         1e-3|       256|False  |
+|LeNet5|LeNet|MNIST  |     3|         1e-3|       256|True   |
+|VGG11 |VGG11|CIFAR10|    50|         1e-4|       256|False  |
+|VGG11 |VGG11|CIFAR10|    50|         1e-4|       256|True   |
+|VGG16 |VGG16|CIFAR10|   100|         1e-4|       256|False  |
+|VGG16 |VGG16|CIFAR10|   100|         1e-4|       256|True   |
 
 * **Pretrained** descirbe the pretrained Frequentists model
 * **Starting** descirbe the Bayesian model initialized with the Pretrained model without before training

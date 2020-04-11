@@ -1,5 +1,6 @@
 from benchmarks.lenet import BenchmarkLeNet5
 from benchmarks.vgg import BenchmarkVGG11
+from benchmarks.vgg import BenchmarkVGG16
 from prettytable import PrettyTable
 
 import argparse
@@ -35,8 +36,29 @@ if args.model.lower() == "LeNet".lower():
     print(table)
     exit(0)
 
-if args.model.lower() == "VGG".lower():
+if args.model.lower() == "VGG11".lower():
     (f_acc, f_size), (b_acc, b_size) = BenchmarkVGG11(
+        epochs=args.epochs, batch_size=args.batch_size,
+        n_workers=6, root="datasets", f_lr=args.f_lr, b_lr=args.b_lr,
+    )()
+
+    table = PrettyTable([
+        "Model", 
+        "Frequentist Acc",  "Bayesian Acc",
+        "Frequentist Size", "Bayesian Size"
+    ])
+    table.add_row([
+        "VGG11", 
+        f"{f_acc:.2%}",   f"{b_acc:.2%}",
+        f"{f_size:.4}Mb", f"{b_size:.4}Mb"
+    ])
+
+    print("---- Table")
+    print(table)
+    exit(0)
+
+if args.model.lower() == "VGG16".lower():
+    (f_acc, f_size), (b_acc, b_size) = BenchmarkVGG16(
         epochs=args.epochs, batch_size=args.batch_size,
         n_workers=6, root="datasets", f_lr=args.f_lr, b_lr=args.b_lr,
     )()

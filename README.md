@@ -74,10 +74,19 @@ $ python3 -m benchmarks --model [ModelName]
 ```
 
 **Benchmarks available** *(Accurcy reported from validation)*
-|Model |Name |Dataset|Frequentist Accuracy|Bayesian Accuracy|Frequentist Size|Bayesian Size|Epochs|Learning Rate|Batch Size|
-|:-----|:----|:------|-------------------:|----------------:|---------------:|------------:|-----:|------------:|---------:|
-|LeNet5|LeNet|MNIST  |              98.75%|           98.43%|         338.9kB|      676.1kB|    10|    1e-2/1e-3|       256|
-|VGG11 |VGG  |CIFAR10|                 ...|              ...|         72.39Mb|      144.8Mb|    10|             |       256|
+|Model |Name |Dataset|Frequentist Accuracy|Bayesian Accuracy|Frequentist Size|Bayesian Size|Epochs|Learning Rate*|Batch Size|
+|:-----|:----|:------|-------------------:|----------------:|---------------:|------------:|-----:|-------------:|---------:|
+|LeNet5|LeNet|MNIST  |              98.75%|           98.43%|         338.9kB|      676.1kB|    10|     1e-2/1e-3|       256|
+|VGG11 |VGG11|CIFAR10|              82.99%|           63.96%|         72.39Mb|      144.8Mb|    30|     1e-3/1e-4|       256|
+|VGG16 |VGG16|CIFAR10|                ...%|             ...%|           ...Mb|        ...Mb|   ...|       .../...|       256|
+
+\* Learning rate is different for frequentist and bayesian `f_lr/b_lr`. Bayesian version seems to work better with smaller learning rates.
+
+> #### Disclaimer
+> No efforts have been put in achieving best performances on the tasks presented in this benchmark.
+> This benchmarks is present ot offer a basic overview comparing frequentist and bayesian version of common models.
+> Obviously one could use Hyperparameter Scheduling, Dropout, Batch Normalization, Regularization, ... etc, 
+> to improve performances.
 
 ## References
 

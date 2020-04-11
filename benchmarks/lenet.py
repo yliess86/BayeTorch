@@ -88,6 +88,7 @@ class BenchmarkLeNet5(Benchmark):
         criterion = nn.CrossEntropyLoss().cuda()
         optim = Adam(model.parameters(), lr=self.f_lr)
 
+        best_acc = 0.0
         for epoch in range(self.epochs):
             print("-- Epoch", f"{(epoch + 1)}/{self.epochs}")
 
@@ -112,10 +113,12 @@ class BenchmarkLeNet5(Benchmark):
                 acc += torch.argmax(y, axis=-1).eq(Y).sum().item() / n
             
             print("Validation Accuracy:", f"{acc:.2%}")
+            if acc > best_acc:
+                best_acc = acc
 
         print()
 
-        return acc, megabytes
+        return best_acc, megabytes
 
     def run_bayesian(self) -> Tuple[float, float]:
         print("---- Bayesian")
@@ -127,6 +130,7 @@ class BenchmarkLeNet5(Benchmark):
         criterion = ELBO(len(self.train_loader.dataset)).cuda()
         optim = Adam(model.parameters(), lr=self.b_lr)
 
+        best_acc = 0.0
         for epoch in range(self.epochs):
             print("-- Epoch", f"{(epoch + 1)}/{self.epochs}")
 
@@ -155,7 +159,9 @@ class BenchmarkLeNet5(Benchmark):
                 acc += torch.argmax(log_y, axis=-1).eq(Y).sum().item() / n
             
             print("Validation Accuracy:", f"{acc:.2%}")
+            if acc > best_acc:
+                best_acc = acc
 
         print()
 
-        return acc, megabytes
+        return best_acc, megabytes

@@ -1,3 +1,4 @@
+from bayetorch.convert import init_bayesian_with_frequentist
 from torch import Tensor
 
 import torch
@@ -16,3 +17,10 @@ class BayesianModel(nn.Module):
             if hasattr(child, "kl_divergence")
         ]))
         return kld
+
+    def init_with_frequentist(
+        self,
+        frequentist: nn.Module,
+        freeze: bool = True
+    ) -> "BayesianModel":
+        return init_bayesian_with_frequentist(self, frequentist, freeze)

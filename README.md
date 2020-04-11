@@ -72,7 +72,8 @@ Benchmarks are available via the `benchmarks` folder ans can be run with (requir
 #### Frequentists vs Bayesian
 
 ```bash
-$ python3 -m benchmarks [-h] --model MODEL --epochs EPOCHS [EPOCHS ...] --batch_size BATCH_SIZE --lr LR [LR ...] [--samples SAMPLES] [--init] [--freeze]
+$ python3 -m benchmarks [-h] --model MODEL --epochs EPOCHS [EPOCHS ...]\
+    --batch_size BATCH_SIZE --lr LR [LR ...] [--samples SAMPLES] [--init] [--freeze]
 ```
 
 **Benchmarks available** *(Accurcy reported from validation)*

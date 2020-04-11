@@ -69,6 +69,8 @@ $ pytest -v tests/[TestFile].py
 
 Benchmarks are available via the `benchmarks` folder ans can be run with (requires cuda enable GPU with cuda and cudnn installed):
 
+#### Frequentists vs Bayesian
+
 ```bash
 $ python3 -m benchmarks --model [ModelName]
 ```
@@ -88,11 +90,38 @@ $ python3 -m benchmarks --model [ModelName]
 
 \* Learning rate is different for frequentist and bayesian `f_lr/b_lr`. Bayesian version seems to work better with smaller learning rates.
 
-> #### Disclaimer
+> ##### Disclaimer
 > No efforts have been put in achieving best performances on the tasks presented in this benchmark.
 > This benchmark is present to offer a basic overview comparing frequentist to bayesian version of common models.
 > Obviously one could tune the models using Hyperparameter Scheduling, Dropout, Batch Normalization, 
 > Regularization, ... etc, to improve the performances.
+
+#### Bayesian with Pretrained Frequentist
+
+This benchmark shows if their is any benefit benefit from preinitializing a bayesian model with its pretrained frequentist counterpart. (Hyperparameters are the same as the *Frequentists vs Bayesian* section)
+
+|Model |Name |Dataset|Pretrained Accuracy|Starting Accuracy|Final Accuracy|Freezed|
+|:-----|:----|:------|------------------:|----------------:|-------------:|:------|
+|LeNet5|LeNet|MNIST  |             98.33%|           60.57%|        98.37%|False  |
+|LeNet5|LeNet|MNIST  |             98.00%|           53.68%|        54.15%|True   |
+|VGG11 |VGG11|CIFAR10|               ...%|             ...%|          ...%|False  |
+|VGG11 |VGG11|CIFAR10|               ...%|             ...%|          ...%|True   |
+|VGG16 |VGG16|CIFAR10|               ...%|             ...%|          ...%|False  |
+|VGG16 |VGG16|CIFAR10|               ...%|             ...%|          ...%|True   |
+
+|Model |Name |Dataset|Epochs|Learning Rate*|Batch Size|Freezed|
+|:-----|:----|:------|-----:|-------------:|---------:|:------|
+|LeNet5|LeNet|MNIST  |   ...|           ...|       ...|False  |
+|LeNet5|LeNet|MNIST  |   ...|           ...|       ...|True   |
+|VGG11 |VGG11|CIFAR10|   ...|           ...|       ...|False  |
+|VGG11 |VGG11|CIFAR10|   ...|           ...|       ...|True   |
+|VGG16 |VGG16|CIFAR10|   ...|           ...|       ...|False  |
+|VGG16 |VGG16|CIFAR10|   ...|           ...|       ...|True   |
+
+* **Pretrained** descirbe the pretrained Frequentists model
+* **Starting** descirbe the Bayesian model initialized with the Pretrained model without before training
+* **Final** descirbe the Bayesian model initialized with the Pretrained model without after training
+* **Freeze** describe if the pretrained weights are frozen or not
 
 ## References
 

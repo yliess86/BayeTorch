@@ -6,27 +6,28 @@ sys.path.append(os.path.join(base_path, ".."))
 
 from bayetorch.models import BayesianLeNet5
 from bayetorch.models import LeNet5
-from benchmarks.base import Benchmark
-from benchmarks.base import SizeEstimator
+from benchmarks.base import BenchmarkWithInit
 from torch.utils.data import DataLoader
 from torchvision.datasets.mnist import MNIST
 from torchvision.transforms import ToTensor
 
 
-class BenchmarkLeNet5(Benchmark):
+class BenchmarkWithInitLeNet5(BenchmarkWithInit):
     def __init__(
         self,
-        epochs: int,
+        f_epochs: int,
+        b_epochs: int,
         batch_size: int,
         n_workers: int,
         root: str,
         f_lr: float,
-        b_lr: float
+        b_lr: float,
+        freeze: bool
     ) -> None:
-        super(BenchmarkLeNet5, self).__init__(
-            epochs, batch_size, n_workers, root, f_lr, b_lr
+        super(BenchmarkWithInitLeNet5, self).__init__(
+            f_epochs, b_epochs, batch_size, n_workers, 
+            root, f_lr, b_lr, freeze
         )
-
         train_transform = valid_transform = ToTensor() 
 
         self.train_loader = DataLoader(

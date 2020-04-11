@@ -78,15 +78,15 @@ $ python3 -m benchmarks --model [ModelName]
 |:-----|:----|:------|-------------------:|----------------:|---------------:|------------:|-----:|-------------:|---------:|
 |LeNet5|LeNet|MNIST  |              98.75%|           98.43%|         338.9kB|      676.1kB|    10|     1e-2/1e-3|       256|
 |VGG11 |VGG11|CIFAR10|              82.99%|           63.96%|         72.39Mb|      144.8Mb|    30|     1e-3/1e-4|       256|
-|VGG16 |VGG16|CIFAR10|                ...%|             ...%|           ...Mb|        ...Mb|   ...|       .../...|       256|
+|VGG16 |VGG16|CIFAR10|              86.56%|           75.81%|         114.3Mb|      228.6Mb|   100|     1e-3/1e-4|       256|
 
 \* Learning rate is different for frequentist and bayesian `f_lr/b_lr`. Bayesian version seems to work better with smaller learning rates.
 
 > #### Disclaimer
 > No efforts have been put in achieving best performances on the tasks presented in this benchmark.
-> This benchmarks is present ot offer a basic overview comparing frequentist and bayesian version of common models.
-> Obviously one could use Hyperparameter Scheduling, Dropout, Batch Normalization, Regularization, ... etc, 
-> to improve performances.
+> This benchmark is present to offer a basic overview comparing frequentist to bayesian version of common models.
+> Obviously one could tune the models using Hyperparameter Scheduling, Dropout, Batch Normalization, 
+> Regularization, ... etc, to improve the performances.
 
 ## References
 

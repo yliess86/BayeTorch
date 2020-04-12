@@ -32,7 +32,6 @@ BayeTorch is an experimental module for **Python** based on the **PyTorch** libr
 |*ELBO*       |bayetorch.metrics.*ELBO*       |
 |*Uncertainty*|bayetorch.metrics.*Uncertainty*|
 
-*Work in progress ...*
 
 ## Install
 
@@ -124,6 +123,14 @@ This benchmark shows if their is any benefit benefit from preinitializing a baye
 * **Starting** descirbe the Bayesian model initialized with the Pretrained model without before training
 * **Final** descirbe the Bayesian model initialized with the Pretrained model without after training
 * **Freeze** describe if the pretrained weights are frozen or not
+
+#### Uncertainty
+
+Both **Epsitemic** and **Aleatoric** uncertainty can be retrieved through the use of the **Uncertainty** metric. The implementation followes the original implementatio ndescribe in the paper from [Shridhar et al. 2019]. As the following figure shows, the epsitemic uncertainty seems to increase when the picture are rotated and the model gets the prediction wrong. The figure show MNIST images rotated from 0 to 360 degrees with their assiociated epistemic uncertainty in blue (rescaled by a factor of 100) with a sample size of 15 and `BaysianLeNet5`. Label and model predictions are shown above the corresonding image in the form `label, prediction`.
+
+![Uncertainty](benchmarks/uncertainty.png)
+
+Concerning the aleatoric uncertainty, its value only seems to change when modifying the dataset or the augmentation pipleine.
 
 ## References
 

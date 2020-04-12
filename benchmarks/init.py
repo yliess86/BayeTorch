@@ -35,6 +35,7 @@ class BenchmarkInit:
 
     def pretrain(self) -> float:
         print("---- Pretrain")
+        
         self.frequentist = self.frequentist.cuda()
         criterion = nn.CrossEntropyLoss().cuda()
         optim = Adam(self.frequentist.parameters(), lr=self.f_lr)

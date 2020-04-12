@@ -12,6 +12,7 @@ from bayetorch.models import VGG11
 from bayetorch.models import VGG16
 from benchmarks.acc import BenchmarkAcc
 from benchmarks.init import BenchmarkInit
+from benchmarks.uncert import BenchmarkUncert
 from prettytable import PrettyTable
 from torch.utils.data import DataLoader
 from torchvision.datasets.cifar import CIFAR10
@@ -121,10 +122,21 @@ def benchmark_init(
     exit(0)
 
 
+def benchmark_uncert(
+    name: str, freq, baye, train, valid, n_classes, args
+) -> None:
+    BenchmarkUncert(
+        *args.epochs, *args.lr, args.samples,
+        train, valid, n_classes, baye
+    )()
+
+    exit(0)
+
+
 CHOICES = {
     "acc":    benchmark_acc,
     "init":   benchmark_init,
-    "uncert": lambda *x: None
+    "uncert": benchmark_uncert
 }
 
 parser = argparse.ArgumentParser()

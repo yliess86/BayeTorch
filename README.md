@@ -6,6 +6,8 @@
 
 BayeTorch is an experimental module for **Python** based on the **PyTorch** library. It aims at profiding a simple way to turn any -- at least the one with the layers currently supported -- PyTorch model into its **Bayesian** equivalent using a **Bayesian by Backpropagation** approach. **Layers** from the PyTorch library are ported to their Bayesian form -- `Bayesian[ModuleName]` -- using the local reparametrization trick. Some commonly used **Criterions** are also available such as the **ELBO**, minimized for classification tasks, and the **Uncertainty** offering **epistemic** and **aleatoric** estimations.
 
+*This work is one implementation of [Shridhar et al. 2019] work.*
+
 **Supported Layers**:
 
 |PyTorch Names    |BayeTorch Equivalent             |
@@ -73,8 +75,13 @@ Benchmarks are available via the `benchmarks` folder ans can be run with (requir
 
 ```bash
 $ python3 -m benchmarks [-h] --model MODEL --epochs EPOCHS [EPOCHS ...]\
-    --batch_size BATCH_SIZE --lr LR [LR ...] [--samples SAMPLES] [--init] [--freeze]
+    --batch_size BATCH_SIZE [--n_workers N_WORKERS] --lr LR [LR ...]\
+    [--samples SAMPLES] --task TASK [--freeze]
 ```
+
+* **Task**: acc, init, uncert
+* **Epochs**: give 1 for acc and uncert, 2 for init
+* **Lr**: give 2 for acc and init, 1 for uncert
 
 **Benchmarks available** *(Accurcy reported from validation)*
 |Model |Name |Dataset|Frequentist Accuracy|Bayesian Accuracy|Frequentist Size|Bayesian Size|
